@@ -8,22 +8,22 @@ All colors MUST be HSL for perfect theme consistency.
 
 @layer base {
   :root {
-    /* Base colors */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    /* Base colors - Black background with green accents */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
 
     /* Card system */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
 
     /* Popover system */
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Nigerian brand colors */
-    --primary: 154 100% 26%; /* Nigerian Green #008751 */
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 154 100% 35%;
+    /* Primary green colors for dark theme */
+    --primary: 154 100% 45%; /* Bright green for black background */
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 154 100% 55%;
 
     /* Gold accent (Nigerian flag inspired) */
     --secondary: 51 100% 50%; /* Gold #FFD700 */
@@ -36,25 +36,25 @@ All colors MUST be HSL for perfect theme consistency.
     --dark-muted: 0 0% 15%;
     --dark-card: 0 0% 8%;
 
-    /* Muted colors */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    /* Muted colors for dark theme */
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
 
     /* Accent colors */
-    --accent: 154 30% 95%;
-    --accent-foreground: 154 100% 26%;
+    --accent: 154 30% 20%;
+    --accent-foreground: 154 100% 45%;
 
     /* System colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 95%;
-    --ring: 154 100% 26%;
+    --border: 0 0% 25%;
+    --input: 0 0% 16%;
+    --ring: 154 100% 45%;
 
-    /* Nigerian gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(154 100% 26%) 0%, hsl(51 100% 50%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(154 100% 15%) 50%, hsl(0 0% 8%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(154 10% 98%) 100%);
+    /* Dark theme gradients with green accents */
+    --gradient-primary: linear-gradient(135deg, hsl(154 100% 45%) 0%, hsl(154 100% 35%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(154 100% 8%) 50%, hsl(0 0% 5%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(154 20% 10%) 100%);
     --gradient-glow: radial-gradient(circle, hsl(154 100% 26% / 0.3) 0%, transparent 70%);
 
     /* Shadows with Nigerian green tint */
