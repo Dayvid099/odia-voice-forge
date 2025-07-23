@@ -4,14 +4,24 @@
     <meta charset="UTF-8" />
     
     <!-- PWA & Mobile Optimizations -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Agent Lexi" />
     <meta name="application-name" content="Agent Lexi" />
     <meta name="msapplication-TileColor" content="#00D4AA" />
+    <meta name="msapplication-TileImage" content="/icon-512.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
     <meta name="theme-color" content="#00D4AA" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#00D4AA" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141414" />
+    
+    <!-- Performance & Security -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="google" content="notranslate" />
     
     <!-- SEO & App Info -->
     <title>Agent Lexi - Nigerian WhatsApp Voice AI Assistant | ODIA AI</title>
@@ -21,10 +31,21 @@
     <meta name="robots" content="index, follow" />
 
     <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png" />
     <link rel="shortcut icon" href="/icon-192.png" />
+    <link rel="mask-icon" href="/icon-192.png" color="#00D4AA" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -35,9 +56,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://kwubyskxnflyvkqmvytf.supabase.co" />
     <link rel="preconnect" href="https://api.elevenlabs.io" />
+    <link rel="preconnect" href="https://api.openai.com" />
+    <link rel="dns-prefetch" href="//kwubyskxnflyvkqmvytf.supabase.co" />
     <link rel="dns-prefetch" href="//api.elevenlabs.io" />
+    <link rel="dns-prefetch" href="//api.openai.com" />
     <link rel="prefetch" href="/agent-lexi" />
+    <link rel="preload" href="/icon-512.png" as="image" type="image/png" />
+    <link rel="modulepreload" href="/src/main.tsx" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="Agent Lexi - Nigerian WhatsApp Voice AI Assistant | ODIA AI" />
@@ -58,33 +85,181 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Service Worker Registration -->
+    <!-- Advanced Service Worker & PWA Setup -->
     <script>
+      // Enhanced Service Worker Registration
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
+        window.addEventListener('load', async () => {
+          try {
+            const registration = await navigator.serviceWorker.register('/sw.js', {
+              scope: '/',
+              updateViaCache: 'none'
             });
+            
+            console.log('Service Worker registered successfully:', registration);
+            
+            // Handle updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New content is available, notify user
+                    if (confirm('New version available! Reload to update?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              }
+            });
+            
+            // Enable periodic background sync if supported
+            if ('periodicSync' in registration) {
+              try {
+                await registration.periodicSync.register('cache-cleanup', {
+                  minInterval: 24 * 60 * 60 * 1000 // 24 hours
+                });
+                console.log('Periodic background sync registered');
+              } catch (error) {
+                console.log('Periodic background sync registration failed:', error);
+              }
+            }
+            
+          } catch (error) {
+            console.error('Service Worker registration failed:', error);
+          }
         });
       }
       
-      // PWA Install Prompt
+      // Enhanced PWA Features
       let deferredPrompt;
       
+      // Install prompt handling
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
+        console.log('PWA install prompt available');
+      });
+      
+      // Track app installation
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA was installed successfully');
+        deferredPrompt = null;
         
-        // Show custom install button
-        const installButton = document.getElementById('pwa-install-button');
-        if (installButton) {
-          installButton.style.display = 'block';
+        // Analytics tracking (if needed)
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'pwa_install', {
+            event_category: 'engagement',
+            event_label: 'Agent Lexi PWA'
+          });
         }
       });
+      
+      // Handle app shortcuts
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const source = urlParams.get('source');
+        const action = urlParams.get('action');
+        
+        if (source === 'shortcut' || source === 'pwa') {
+          console.log(`App launched from ${source} with action: ${action}`);
+          
+          // Handle specific actions
+          if (action === 'chat') {
+            // Navigate to chat after app loads
+            setTimeout(() => {
+              if (window.location.pathname !== '/agent-lexi') {
+                window.location.href = '/agent-lexi';
+              }
+            }, 100);
+          } else if (action === 'demo') {
+            setTimeout(() => {
+              const demoSection = document.getElementById('demo');
+              if (demoSection) {
+                demoSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 500);
+          } else if (action === 'contact') {
+            setTimeout(() => {
+              const contactSection = document.getElementById('contact');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 500);
+          }
+        }
+      });
+      
+      // Performance monitoring
+      if ('performance' in window && 'getEntriesByType' in performance) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const navigation = performance.getEntriesByType('navigation')[0];
+            const loadTime = navigation.loadEventEnd - navigation.fetchStart;
+            console.log(`App load time: ${loadTime}ms`);
+            
+            // Track Core Web Vitals
+            if ('PerformanceObserver' in window) {
+              new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                  console.log(`${entry.name}: ${entry.value}ms`);
+                }
+              }).observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
+            }
+          }, 0);
+        });
+      }
+      
+      // Offline detection and notification
+      function updateOnlineStatus() {
+        const isOnline = navigator.onLine;
+        const body = document.body;
+        
+        if (isOnline) {
+          body.classList.remove('app-offline');
+          body.classList.add('app-online');
+        } else {
+          body.classList.remove('app-online');
+          body.classList.add('app-offline');
+        }
+        
+        console.log(`App is ${isOnline ? 'online' : 'offline'}`);
+      }
+      
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus(); // Check initial status
     </script>
+    
+    <!-- PWA Styles -->
+    <style>
+      .app-offline {
+        border-top: 2px solid #f59e0b;
+      }
+      
+      .app-online {
+        border-top: 2px solid #10b981;
+      }
+      
+      /* Splash screen styles */
+      #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #141414;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.3s ease;
+      }
+      
+      #splash-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
   </body>
 </html>
