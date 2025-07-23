@@ -3,6 +3,17 @@ import { useConversation } from '@11labs/react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { 
   Mic, 
   MicOff, 
@@ -14,7 +25,9 @@ import {
   Maximize2,
   Send,
   Phone,
-  PhoneOff
+  PhoneOff,
+  Settings,
+  Key
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import agentLexiAvatar from '@/assets/agent-lexi-avatar.jpg';
@@ -54,7 +67,18 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
   const [textInput, setTextInput] = useState('');
   const [volume, setVolume] = useState(0.8);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [elevenlabsApiKey, setElevenlabsApiKey] = useState('');
+  const [tempApiKey, setTempApiKey] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Load API key from localStorage on mount
+  useEffect(() => {
+    const savedApiKey = localStorage.getItem('elevenlabs_api_key');
+    if (savedApiKey) {
+      setElevenlabsApiKey(savedApiKey);
+    }
+  }, []);
 
   const conversation = useConversation({
     onConnect: () => {
@@ -135,7 +159,26 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
     setTextInput('');
   };
 
+  const handleSaveApiKey = () => {
+    localStorage.setItem('elevenlabs_api_key', tempApiKey);
+    setElevenlabsApiKey(tempApiKey);
+    setShowSettings(false);
+    addMessage('agent', 'ElevenLabs API key saved! You can now use voice chat functionality.');
+  };
+
+  const handleRemoveApiKey = () => {
+    localStorage.removeItem('elevenlabs_api_key');
+    setElevenlabsApiKey('');
+    setTempApiKey('');
+    addMessage('agent', 'API key removed. Voice chat will be in demo mode.');
+  };
+
   const handleStartVoiceCall = async () => {
+    if (!elevenlabsApiKey) {
+      addMessage('agent', 'Please add your ElevenLabs API key in settings to enable voice chat functionality.');
+      return;
+    }
+
     try {
       setIsConnecting(true);
       
@@ -143,13 +186,26 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       stream.getTracks().forEach(track => track.stop()); // Stop the test stream
       
-      addMessage('agent', 'Voice chat is currently in demo mode. For full voice functionality, an ElevenLabs API key would be required. You can continue with text chat to experience Agent Lexi!');
-      setIsConnecting(false);
+      // Generate signed URL with API key (this would normally be done on backend)
+      const response = await fetch(`https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${agentId}`, {
+        method: 'GET',
+        headers: {
+          'xi-api-key': elevenlabsApiKey,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get signed URL');
+      }
+
+      const data = await response.json();
+      await conversation.startSession({ 
+        agentId: agentId,
+        // Use the signed URL approach if available
+        ...(data.signed_url && { url: data.signed_url })
+      });
       
-      // In production, you would:
-      // 1. Get a signed URL from your backend with ElevenLabs API key
-      // 2. Start the conversation with proper authentication
-      // const conversationId = await conversation.startSession({ url: signedUrl });
+      addMessage('agent', 'Voice connection established! You can now speak to me directly.');
       
     } catch (error) {
       console.error('Failed to start voice conversation:', error);
@@ -159,8 +215,10 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
         addMessage('agent', 'Microphone access denied. Please enable microphone permissions in your browser settings and try again, or continue with text chat.');
       } else if (error.name === 'NotFoundError') {
         addMessage('agent', 'No microphone found. Please connect a microphone or use text chat instead.');
+      } else if (error.message.includes('signed URL')) {
+        addMessage('agent', 'Invalid API key or failed to connect to ElevenLabs. Please check your API key in settings.');
       } else {
-        addMessage('agent', 'Voice chat is currently unavailable. Please use text chat to experience Agent Lexi\'s capabilities!');
+        addMessage('agent', 'Voice chat connection failed. Please try again or use text chat.');
       }
     }
   };
@@ -252,6 +310,63 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Dialog open={showSettings} onOpenChange={setShowSettings}>
+            <DialogTrigger asChild>
+              <Button size="sm" variant="ghost" onClick={() => setTempApiKey(elevenlabsApiKey)}>
+                <Settings className="h-4 w-4" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Key className="h-5 w-5" />
+                  ElevenLabs Settings
+                </DialogTitle>
+                <DialogDescription>
+                  Add your ElevenLabs API key to enable voice chat functionality. Your key is stored locally in your browser.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="api-key">ElevenLabs API Key</Label>
+                  <Input
+                    id="api-key"
+                    type="password"
+                    placeholder="sk-..."
+                    value={tempApiKey}
+                    onChange={(e) => setTempApiKey(e.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Get your API key from{' '}
+                    <a 
+                      href="https://elevenlabs.io/app/speech-synthesis/text-to-speech" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      ElevenLabs Dashboard
+                    </a>
+                  </p>
+                </div>
+                {elevenlabsApiKey && (
+                  <div className="flex items-center gap-2 p-2 bg-green-50 rounded-md">
+                    <div className="w-2 h-2 bg-green-500 rounded-full" />
+                    <span className="text-sm text-green-700">API key is configured</span>
+                  </div>
+                )}
+              </div>
+              <DialogFooter className="gap-2">
+                {elevenlabsApiKey && (
+                  <Button variant="outline" onClick={handleRemoveApiKey}>
+                    Remove Key
+                  </Button>
+                )}
+                <Button onClick={handleSaveApiKey} disabled={!tempApiKey.trim()}>
+                  Save API Key
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
           {conversation.status === 'connected' && conversation.isSpeaking && (
             <Badge variant="secondary" className="bg-green-100 text-green-800 animate-pulse">
               Speaking
