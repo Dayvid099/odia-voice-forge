@@ -1,0 +1,61 @@
+{
+  "name": "ODIA AI - Agent Lexi",
+  "short_name": "Agent Lexi",
+  "description": "Nigeria's Smartest WhatsApp Voice Assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#141414",
+  "theme_color": "#00D4AA",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "communication"],
+  "lang": "en-NG",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chat with Lexi",
+      "short_name": "Chat",
+      "description": "Start a conversation with Agent Lexi",
+      "url": "/agent-lexi?chat=true",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

@@ -27,9 +27,12 @@ import {
   Phone,
   PhoneOff,
   Settings,
-  Key
+  Key,
+  WifiOff,
+  Wifi
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useOfflineStatus } from '@/hooks/useOfflineStatus';
 import agentLexiAvatar from '@/assets/agent-lexi-avatar.jpg';
 
 interface Message {
@@ -39,6 +42,7 @@ interface Message {
   timestamp: Date;
   isVoice?: boolean;
   audioUrl?: string;
+  isOffline?: boolean;
 }
 
 interface LexiChatWidgetProps {
@@ -71,6 +75,7 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
   const [elevenlabsApiKey, setElevenlabsApiKey] = useState('');
   const [tempApiKey, setTempApiKey] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const isOnline = useOfflineStatus();
 
   // Load API key from localStorage on mount
   useEffect(() => {
@@ -286,15 +291,24 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
             className="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
           />
           <div>
-            <h3 className="font-semibold">Agent Lexi</h3>
+            <h3 className="font-semibold flex items-center gap-2">
+              Agent Lexi
+              {!isOnline && <WifiOff className="h-4 w-4 text-red-500" />}
+            </h3>
             <p className="text-sm text-muted-foreground flex items-center gap-2">
-              {conversation.status === 'connected' && (
+              {!isOnline && (
+                <>
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  Offline Mode
+                </>
+              )}
+              {isOnline && conversation.status === 'connected' && (
                 <>
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   Voice Active
                 </>
               )}
-              {conversation.status === 'disconnected' && (
+              {isOnline && conversation.status === 'disconnected' && (
                 <>
                   <div className="w-2 h-2 bg-gray-400 rounded-full" />
                   Chat Available

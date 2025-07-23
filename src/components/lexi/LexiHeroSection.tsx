@@ -1,7 +1,9 @@
 
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mic, MessageSquare, Phone, Zap } from "lucide-react";
+import PWAInstallButton from '@/components/PWAInstallButton';
 
 interface LexiHeroSectionProps {
   onStartDemo?: () => void;
@@ -43,6 +45,9 @@ const LexiHeroSection: React.FC<LexiHeroSectionProps> = ({ onStartDemo }) => {
                 Listen to Voice Samples
               </Button>
             </div>
+            
+            {/* PWA Install Button */}
+            <PWAInstallButton className="w-fit" />
           </div>
 
           {/* Right Visual - Interactive Chat Preview */}

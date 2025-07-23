@@ -1,34 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NG">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ODIA AI - Nigeria's Voice AI Infrastructure Platform</title>
-    <meta name="description" content="Deploy WhatsApp-ready voice AI agents for your Nigerian business in 24hrs. Built for local languages. Trusted by 500+ businesses." />
-    <meta name="keywords" content="voice AI Nigeria, WhatsApp bot Nigeria, Pidgin AI, Claude, Whisper, ElevenLabs, Flutterwave AI, Abuja AI company" />
+    
+    <!-- PWA & Mobile Optimizations -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Agent Lexi" />
+    <meta name="application-name" content="Agent Lexi" />
+    <meta name="msapplication-TileColor" content="#00D4AA" />
+    <meta name="theme-color" content="#00D4AA" />
+    
+    <!-- SEO & App Info -->
+    <title>Agent Lexi - Nigerian WhatsApp Voice AI Assistant | ODIA AI</title>
+    <meta name="description" content="Deploy Nigeria's smartest WhatsApp voice assistant. Handles 2,500+ daily conversations in English, Pidgin, Yoruba & Igbo. 98% satisfaction rate." />
+    <meta name="keywords" content="Nigerian AI, WhatsApp automation, voice assistant Nigeria, customer service automation, Nigerian languages AI, Agent Lexi" />
     <meta name="author" content="ODIA AI" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/icon-192.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://api.elevenlabs.io" />
+    <link rel="dns-prefetch" href="//api.elevenlabs.io" />
+    <link rel="prefetch" href="/agent-lexi" />
+
     <!-- Open Graph -->
-    <meta property="og:title" content="ODIA AI - Nigeria's Voice AI Infrastructure Platform" />
-    <meta property="og:description" content="Deploy WhatsApp-ready voice AI agents for your Nigerian business in 24hrs. Built for local languages. Trusted by 500+ businesses." />
+    <meta property="og:title" content="Agent Lexi - Nigerian WhatsApp Voice AI Assistant | ODIA AI" />
+    <meta property="og:description" content="Deploy Nigeria's smartest WhatsApp voice assistant. Handles 2,500+ daily conversations in English, Pidgin, Yoruba & Igbo. 98% satisfaction rate." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ai.odia.dev" />
-    <meta property="og:image" content="https://ai.odia.dev/og-image.png" />
+    <meta property="og:url" content="https://00d513bd-7805-446c-9e07-29f7f14d05e7.lovableproject.com" />
+    <meta property="og:image" content="/icon-512.png" />
+    <meta property="og:locale" content="en_NG" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ODIA AI - Nigeria's Voice AI Infrastructure" />
-    <meta name="twitter:description" content="Deploy WhatsApp-ready voice AI agents for your Nigerian business in 24hrs." />
-    <meta name="twitter:image" content="https://ai.odia.dev/og-image.png" />
+    <meta name="twitter:title" content="Agent Lexi - Nigerian WhatsApp Voice AI Assistant" />
+    <meta name="twitter:description" content="Deploy Nigeria's smartest WhatsApp voice assistant with 98% satisfaction rate." />
+    <meta name="twitter:image" content="/icon-512.png" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // PWA Install Prompt
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show custom install button
+        const installButton = document.getElementById('pwa-install-button');
+        if (installButton) {
+          installButton.style.display = 'block';
+        }
+      });
+    </script>
   </body>
 </html>
