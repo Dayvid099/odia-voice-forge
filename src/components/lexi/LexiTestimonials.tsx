@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Star } from "lucide-react";
@@ -53,7 +54,7 @@ const LexiTestimonials = () => {
                 {/* Rating */}
                 <div className="flex gap-1">
                   {Array.from({ length: testimonial.rating }, (_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="h-5 w-5 fill-amber text-amber" />
                   ))}
                 </div>
 
@@ -64,8 +65,8 @@ const LexiTestimonials = () => {
 
                 {/* Profile */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                    <span className="font-semibold text-emerald-700">
+                  <div className="w-12 h-12 bg-teal-light rounded-full flex items-center justify-center">
+                    <span className="font-semibold text-teal-dark">
                       {testimonial.avatar}
                     </span>
                   </div>
@@ -83,7 +84,7 @@ const LexiTestimonials = () => {
                 {/* Video Play Button */}
                 <Button 
                   variant="outline" 
-                  className="w-full flex items-center justify-center gap-2 hover:bg-emerald-50 hover:border-emerald-200"
+                  className="w-full flex items-center justify-center gap-2 hover:bg-teal-light hover:border-teal"
                 >
                   <Play className="h-4 w-4" />
                   Watch Video Testimonial
@@ -96,19 +97,19 @@ const LexiTestimonials = () => {
         {/* Stats Bar */}
         <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-3xl font-bold text-emerald-600">500+</div>
+            <div className="text-3xl font-bold text-teal">500+</div>
             <div className="text-sm text-muted-foreground">Nigerian Businesses</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-emerald-600">98%</div>
+            <div className="text-3xl font-bold text-teal">98%</div>
             <div className="text-sm text-muted-foreground">Satisfaction Rate</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-emerald-600">1M+</div>
+            <div className="text-3xl font-bold text-teal">1M+</div>
             <div className="text-sm text-muted-foreground">Conversations Handled</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-emerald-600">24hrs</div>
+            <div className="text-3xl font-bold text-teal">24hrs</div>
             <div className="text-sm text-muted-foreground">Average Setup Time</div>
           </div>
         </div>

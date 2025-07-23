@@ -1,3 +1,4 @@
+
 import { MessageSquare, ThumbsUp, Clock, Shield } from "lucide-react";
 
 const LexiStatsBar = () => {
@@ -6,13 +7,13 @@ const LexiStatsBar = () => {
       number: "2,500+",
       label: "Daily Conversations",
       icon: MessageSquare,
-      color: "text-emerald-600"
+      color: "text-teal"
     },
     {
       number: "98%",
       label: "Customer Satisfaction",
       icon: ThumbsUp,
-      color: "text-amber-600"
+      color: "text-amber"
     },
     {
       number: "< 3 sec",
@@ -24,7 +25,7 @@ const LexiStatsBar = () => {
       number: "24/7",
       label: "Always Online",
       icon: Shield,
-      color: "text-purple-600"
+      color: "text-slate"
     }
   ];
 

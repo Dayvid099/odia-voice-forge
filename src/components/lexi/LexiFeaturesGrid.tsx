@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mic, MessageSquare, CreditCard, Clock, Brain, Shield, Play } from "lucide-react";
@@ -61,8 +62,8 @@ const LexiFeaturesGrid = () => {
                 <div className="space-y-6">
                   {/* Icon and Title */}
                   <div className="space-y-4">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
-                      <IconComponent className="h-6 w-6 text-emerald-600" />
+                    <div className="w-12 h-12 bg-teal-light rounded-lg flex items-center justify-center group-hover:bg-teal-light/80 transition-colors">
+                      <IconComponent className="h-6 w-6 text-teal-dark" />
                     </div>
                     <h3 className="text-xl font-semibold">{feature.title}</h3>
                   </div>
@@ -80,7 +81,7 @@ const LexiFeaturesGrid = () => {
                         <div className="space-y-1">
                           {feature.languages.map((lang, i) => (
                             <div key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-teal rounded-full"></div>
                               {lang}
                             </div>
                           ))}
@@ -100,7 +101,7 @@ const LexiFeaturesGrid = () => {
                         <div className="space-y-1">
                           {feature.features.map((feat, i) => (
                             <div key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-teal rounded-full"></div>
                               {feat}
                             </div>
                           ))}
@@ -113,7 +114,7 @@ const LexiFeaturesGrid = () => {
                         <h4 className="font-medium text-sm text-gray-700 mb-2">Payment Methods:</h4>
                         <div className="grid grid-cols-2 gap-2">
                           {feature.paymentMethods.map((method, i) => (
-                            <div key={i} className="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded">
+                            <div key={i} className="text-xs bg-teal-light text-teal-dark px-2 py-1 rounded">
                               {method}
                             </div>
                           ))}

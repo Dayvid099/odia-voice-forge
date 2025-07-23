@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -113,8 +114,8 @@ const LexiTechnicalSpecs = () => {
                   <CollapsibleTrigger className="w-full p-6 text-left hover:bg-muted/50 transition-colors">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                          <IconComponent className="h-5 w-5 text-emerald-600" />
+                        <div className="w-10 h-10 bg-teal-light rounded-lg flex items-center justify-center">
+                          <IconComponent className="h-5 w-5 text-teal-dark" />
                         </div>
                         <h3 className="text-xl font-semibold">{section.title}</h3>
                       </div>
@@ -147,15 +148,15 @@ const LexiTechnicalSpecs = () => {
         {/* Performance Highlights */}
         <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
           <Card className="p-6">
-            <div className="text-3xl font-bold text-emerald-600 mb-2">&lt; 500ms</div>
+            <div className="text-3xl font-bold text-teal mb-2">&lt; 500ms</div>
             <div className="text-sm text-muted-foreground">Voice Response Time</div>
           </Card>
           <Card className="p-6">
-            <div className="text-3xl font-bold text-emerald-600 mb-2">99.9%</div>
+            <div className="text-3xl font-bold text-teal mb-2">99.9%</div>
             <div className="text-sm text-muted-foreground">Guaranteed Uptime</div>
           </Card>
           <Card className="p-6">
-            <div className="text-3xl font-bold text-emerald-600 mb-2">5+</div>
+            <div className="text-3xl font-bold text-teal mb-2">5+</div>
             <div className="text-sm text-muted-foreground">Nigerian Languages</div>
           </Card>
         </div>

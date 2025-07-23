@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,12 +26,12 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
+					DEFAULT: 'hsl(166, 100%, 42%)', // #00D4AA
 					foreground: 'hsl(var(--primary-foreground))',
-					glow: 'hsl(var(--primary-glow))'
+					glow: 'hsl(166, 100%, 42%)'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
+					DEFAULT: 'hsl(217, 32%, 17%)', // #1E293B
 					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				destructive: {
@@ -42,7 +43,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
+					DEFAULT: 'hsl(38, 95%, 48%)', // #F59E0B
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -53,15 +54,21 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Nigerian brand colors
-				gold: {
-					DEFAULT: 'hsl(var(--gold))',
-					light: 'hsl(var(--gold-light))'
+				// Agent Lexi brand colors
+				teal: {
+					DEFAULT: 'hsl(166, 100%, 42%)', // #00D4AA
+					light: 'hsl(166, 100%, 85%)',
+					dark: 'hsl(166, 100%, 35%)'
 				},
-				dark: {
-					DEFAULT: 'hsl(var(--dark))',
-					muted: 'hsl(var(--dark-muted))',
-					card: 'hsl(var(--dark-card))'
+				slate: {
+					DEFAULT: 'hsl(217, 32%, 17%)', // #1E293B
+					light: 'hsl(217, 32%, 85%)',
+					dark: 'hsl(217, 32%, 10%)'
+				},
+				amber: {
+					DEFAULT: 'hsl(38, 95%, 48%)', // #F59E0B
+					light: 'hsl(38, 95%, 85%)',
+					dark: 'hsl(38, 95%, 35%)'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -79,14 +86,14 @@ export default {
 				'space-grotesk': ['Space Grotesk', 'system-ui', 'sans-serif'],
 			},
 			backgroundImage: {
-				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-card': 'var(--gradient-card)',
-				'gradient-glow': 'var(--gradient-glow)',
+				'gradient-primary': 'linear-gradient(135deg, hsl(166, 100%, 42%) 0%, hsl(38, 95%, 48%) 100%)',
+				'gradient-hero': 'linear-gradient(135deg, hsl(166, 100%, 42%) 0%, hsl(217, 32%, 17%) 100%)',
+				'gradient-card': 'linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(166, 100%, 95%) 100%)',
+				'gradient-glow': 'radial-gradient(circle, hsl(166, 100%, 42%) 0%, transparent 70%)',
 			},
 			boxShadow: {
-				'glow': 'var(--shadow-glow)',
-				'gold': 'var(--shadow-gold)',
+				'glow': '0 0 20px hsla(166, 100%, 42%, 0.3)',
+				'teal': '0 0 20px hsla(166, 100%, 42%, 0.2)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

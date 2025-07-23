@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,10 +55,10 @@ const chatFeatures = [
 ];
 
 const dashboardMetrics = [
-  { title: 'Daily Conversations', value: '2,847', change: '+18%', color: 'text-green-600' },
+  { title: 'Daily Conversations', value: '2,847', change: '+18%', color: 'text-teal' },
   { title: 'Satisfaction Score', value: '98.2%', change: '+2.1%', color: 'text-blue-600' },
   { title: 'Avg Response Time', value: '2.3s', change: '-15%', color: 'text-purple-600' },
-  { title: 'Revenue Generated', value: '₦1.2M', change: '+34%', color: 'text-orange-600' }
+  { title: 'Revenue Generated', value: '₦1.2M', change: '+34%', color: 'text-amber' }
 ];
 
 const LexiConversationDemo: React.FC = () => {
@@ -75,7 +76,7 @@ const LexiConversationDemo: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-primary/5 to-secondary/5">
+    <section className="py-20 bg-gradient-to-br from-background via-teal-light/5 to-amber-light/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Experience Lexi's Conversational AI</h2>
@@ -106,7 +107,7 @@ const LexiConversationDemo: React.FC = () => {
               <Card className="h-fit">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Volume2 className="h-5 w-5 text-primary" />
+                    <Volume2 className="h-5 w-5 text-teal" />
                     Interactive Voice Scenarios
                   </CardTitle>
                 </CardHeader>
@@ -114,8 +115,8 @@ const LexiConversationDemo: React.FC = () => {
                   {voiceScenarios.map((scenario) => (
                     <div
                       key={scenario.id}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all hover:border-primary/50 ${
-                        activeVoiceDemo.id === scenario.id ? 'border-primary bg-primary/5' : 'border-border'
+                      className={`p-4 rounded-lg border cursor-pointer transition-all hover:border-teal/50 ${
+                        activeVoiceDemo.id === scenario.id ? 'border-teal bg-teal-light/10' : 'border-border'
                       }`}
                       onClick={() => setActiveVoiceDemo(scenario)}
                     >
@@ -159,7 +160,7 @@ const LexiConversationDemo: React.FC = () => {
                     />
                     Live Voice Demo
                     {isPlaying && (
-                      <Badge className="bg-green-100 text-green-800 animate-pulse">
+                      <Badge className="bg-teal-light text-teal-dark animate-pulse">
                         Playing
                       </Badge>
                     )}
@@ -168,7 +169,7 @@ const LexiConversationDemo: React.FC = () => {
                 <CardContent className="space-y-6">
                   {/* Customer Message */}
                   <div className="flex justify-end">
-                    <div className="bg-primary text-primary-foreground rounded-lg p-3 max-w-[80%]">
+                    <div className="bg-teal text-white rounded-lg p-3 max-w-[80%]">
                       <p className="text-sm">{activeVoiceDemo.customer}</p>
                       <p className="text-xs opacity-80 mt-1">Customer • Voice message</p>
                     </div>
@@ -193,10 +194,10 @@ const LexiConversationDemo: React.FC = () => {
                         </p>
                         {isPlaying && (
                           <div className="flex items-center gap-1">
-                            <div className="w-1 h-3 bg-green-500 rounded animate-pulse"></div>
-                            <div className="w-1 h-2 bg-green-400 rounded animate-pulse" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-1 h-4 bg-green-500 rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                            <div className="w-1 h-2 bg-green-400 rounded animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                            <div className="w-1 h-3 bg-teal rounded animate-pulse"></div>
+                            <div className="w-1 h-2 bg-teal rounded animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-1 h-4 bg-teal rounded animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-1 h-2 bg-teal rounded animate-pulse" style={{ animationDelay: '0.3s' }}></div>
                           </div>
                         )}
                       </div>
@@ -206,7 +207,7 @@ const LexiConversationDemo: React.FC = () => {
                   <div className="text-center pt-4">
                     <Button 
                       size="lg" 
-                      className="bg-green-600 hover:bg-green-700"
+                      className="bg-teal hover:bg-teal-dark text-white"
                       onClick={() => handlePlayVoice(activeVoiceDemo)}
                     >
                       {isPlaying ? (
@@ -237,7 +238,7 @@ const LexiConversationDemo: React.FC = () => {
                   <div className="space-y-4">
                     {chatFeatures.map((feature, index) => (
                       <div key={index} className="flex items-start gap-3 p-3 rounded-lg border">
-                        <feature.icon className="h-5 w-5 text-primary mt-0.5" />
+                        <feature.icon className="h-5 w-5 text-teal mt-0.5" />
                         <div>
                           <h4 className="font-medium">{feature.title}</h4>
                           <p className="text-sm text-muted-foreground">{feature.desc}</p>
@@ -246,7 +247,7 @@ const LexiConversationDemo: React.FC = () => {
                     ))}
                   </div>
                   <div className="flex items-center justify-center">
-                    <Button size="lg" className="w-full max-w-xs">
+                    <Button size="lg" className="w-full max-w-xs bg-teal hover:bg-teal-dark">
                       Launch Live Chat Demo
                     </Button>
                   </div>
@@ -281,7 +282,7 @@ const LexiConversationDemo: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Monitor your Agent Lexi performance with comprehensive analytics and insights tailored for Nigerian businesses.
                 </p>
-                <Button>View Full Dashboard</Button>
+                <Button className="bg-teal hover:bg-teal-dark">View Full Dashboard</Button>
               </CardContent>
             </Card>
           </TabsContent>

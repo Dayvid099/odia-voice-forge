@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -70,13 +71,13 @@ const LexiPricing = () => {
               key={index} 
               className={`p-8 relative ${
                 plan.popular 
-                  ? 'ring-2 ring-emerald-500 shadow-xl scale-105' 
+                  ? 'ring-2 ring-teal shadow-xl scale-105' 
                   : 'hover:shadow-lg transition-shadow'
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-emerald-600 text-white px-4 py-1">
+                  <Badge className="bg-teal text-white px-4 py-1">
                     Most Popular
                   </Badge>
                 </div>
@@ -106,7 +107,7 @@ const LexiPricing = () => {
                   <ul className="space-y-3">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-teal flex-shrink-0 mt-0.5" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
@@ -117,7 +118,7 @@ const LexiPricing = () => {
                 <Button 
                   className={`w-full py-6 text-lg font-semibold ${
                     plan.popular 
-                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                      ? 'bg-teal hover:bg-teal-dark text-white' 
                       : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
                   }`}
                 >
