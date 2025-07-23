@@ -1,1 +1,10 @@
 project_id = "kwubyskxnflyvkqmvytf"
+
+[functions.chat-with-ai]
+verify_jwt = false
+
+[functions.submit-contact]
+verify_jwt = false
+
+[functions.book-demo]
+verify_jwt = false

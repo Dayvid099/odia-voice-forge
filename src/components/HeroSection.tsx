@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Play, Mic, ArrowRight, Sparkles, Users, Clock } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const scrollToDemo = () => {
     document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -97,11 +101,11 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              onClick={scrollToDemo}
+              onClick={() => user ? scrollToDemo() : navigate('/auth')}
               className="btn-gradient text-lg glow-primary group"
               size="lg"
             >
-              Book Free Demo
+              {user ? 'Book Free Demo' : 'Get Started'}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             

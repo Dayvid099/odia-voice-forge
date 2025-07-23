@@ -4,6 +4,8 @@ import LexiCapabilities from "@/components/LexiCapabilities";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import LexiChatWidget from "@/components/lexi/LexiChatWidget";
+import DemoBooking from "@/components/DemoBooking";
 
 const Index = () => {
   return (
@@ -20,11 +22,17 @@ const Index = () => {
       {/* Social proof and testimonials */}
       <TestimonialsSection />
       
+      {/* Demo booking section */}
+      <DemoBooking />
+      
       {/* Contact form with Nigerian business focus */}
       <ContactSection />
       
       {/* Footer with Nigerian pride */}
       <Footer />
+      
+      {/* Chat widget */}
+      <LexiChatWidget />
     </div>
   );
 };

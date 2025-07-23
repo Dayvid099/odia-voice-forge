@@ -5,9 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, MessageSquare, Mail, MapPin, Send, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from '@/integrations/supabase/client';
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     full_name: '',
     business_name: '',
@@ -18,7 +20,7 @@ const ContactSection = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -31,24 +33,45 @@ const ContactSection = () => {
       return;
     }
 
-    // Here you would typically send to your API
-    console.log('Form submitted:', formData);
-    
-    toast({
-      title: "Demo Booked Successfully! 🎉",
-      description: "We'll contact you within 2 hours to schedule your free demo + ₦50,000 setup credit.",
-    });
+    setLoading(true);
 
-    // Reset form
-    setFormData({
-      full_name: '',
-      business_name: '',
-      phone: '',
-      email: '',
-      business_size: '',
-      use_case: '',
-      message: ''
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-contact', {
+        body: {
+          name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone,
+          message: `Business: ${formData.business_name}\nSize: ${formData.business_size}\nUse Case: ${formData.use_case}\nMessage: ${formData.message}`
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Demo Booked Successfully! 🎉",
+        description: "We'll contact you within 2 hours to schedule your free demo + ₦50,000 setup credit.",
+      });
+
+      // Reset form
+      setFormData({
+        full_name: '',
+        business_name: '',
+        phone: '',
+        email: '',
+        business_size: '',
+        use_case: '',
+        message: ''
+      });
+    } catch (error: any) {
+      console.error('Contact form error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit form. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -265,9 +288,10 @@ const ContactSection = () => {
                 <Button 
                   type="submit" 
                   className="w-full btn-gradient text-lg py-6 group"
+                  disabled={loading}
                 >
                   <Gift className="mr-2 w-5 h-5" />
-                  Book Free Demo + Get ₦50,000 Setup Credit
+                  {loading ? 'Submitting...' : 'Book Free Demo + Get ₦50,000 Setup Credit'}
                   <Send className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>

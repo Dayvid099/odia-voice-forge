@@ -67,25 +67,7 @@ const AgentLexi = () => {
       <Footer />
       
       {/* Floating Chat Widget */}
-      {showChatWidget && (
-        <>
-          {useVapiAI ? (
-            <VapiChatWidget
-              agentId="vapi-lexi-agent"
-              isMinimized={isChatMinimized}
-              onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
-              onClose={() => setShowChatWidget(false)}
-            />
-          ) : (
-            <LexiChatWidget
-              agentId="lexi-demo-agent"
-              isMinimized={isChatMinimized}
-              onToggleMinimize={() => setIsChatMinimized(!isChatMinimized)}
-              onClose={() => setShowChatWidget(false)}
-            />
-          )}
-        </>
-      )}
+      {showChatWidget && <LexiChatWidget />}
     </div>
   );
 };
