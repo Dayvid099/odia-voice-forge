@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mic, MessageSquare, Phone, Zap } from "lucide-react";
 
-const LexiHeroSection = () => {
+interface LexiHeroSectionProps {
+  onStartDemo?: () => void;
+}
+
+const LexiHeroSection: React.FC<LexiHeroSectionProps> = ({ onStartDemo }) => {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center">
       <div className="container mx-auto px-4 py-20">
@@ -25,7 +29,11 @@ const LexiHeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-semibold px-8 py-6 text-lg">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-semibold px-8 py-6 text-lg"
+                onClick={onStartDemo}
+              >
                 <MessageSquare className="mr-2 h-5 w-5" />
                 Try Lexi Live Demo
               </Button>
