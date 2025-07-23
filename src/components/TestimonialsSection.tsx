@@ -8,24 +8,24 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       company: "Fashion Forward Lagos",
-      testimonial: "ODIA AI transformed our customer service. Agent Lexi handles 80% of our WhatsApp inquiries perfectly in both English and Pidgin. Our response time went from hours to seconds.",
+      testimonial: "Agent Lexi transformed our customer service. Handles 80% of our WhatsApp inquiries perfectly in both English and Pidgin. Our response time went from hours to seconds.",
       author: "Adunni Okafor",
       title: "CEO",
       industry: "Fashion & Retail"
     },
     {
       company: "Tasty Bites Restaurant",
-      testimonial: "Order automation through WhatsApp increased our sales by 150%. The AI understands Nigerian food names and local preferences perfectly. Best investment we've made.",
+      testimonial: "Agent Lexi's order automation through WhatsApp increased our sales by 150%. The AI understands Nigerian food names and local preferences perfectly. Best investment we've made.",
       author: "Emeka Nwosu",
       title: "Owner",
       industry: "Food & Hospitality"
     },
     {
-      company: "Lagos State University",
-      testimonial: "Agent MISS handles student inquiries in 4 languages seamlessly. From admissions to course registration, it's like having 24/7 support staff. Incredible technology.",
-      author: "Prof. Olumide Adebayo",
-      title: "Vice Chancellor",
-      industry: "Education"
+      company: "Flutterwave",
+      testimonial: "Agent Lexi's voice recognition in Nigerian Pidgin is incredible. Handles payment inquiries flawlessly across all major Nigerian languages with impressive accuracy.",
+      author: "Chimamanda Okafor",
+      title: "Product Manager",
+      industry: "Fintech"
     }
   ];
 
@@ -82,7 +82,7 @@ const TestimonialsSection = () => {
             <span className="nigerian-gradient bg-clip-text text-transparent"> Nigerian Business Leaders</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            See how businesses across Nigeria are transforming their operations with ODIA AI
+            See how businesses across Nigeria are transforming their operations with Agent Lexi
           </p>
         </div>
 
