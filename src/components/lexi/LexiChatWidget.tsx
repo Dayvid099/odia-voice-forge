@@ -138,20 +138,30 @@ const LexiChatWidget: React.FC<LexiChatWidgetProps> = ({
   const handleStartVoiceCall = async () => {
     try {
       setIsConnecting(true);
-      // Request microphone permission first
-      await navigator.mediaDevices.getUserMedia({ audio: true });
       
-      // Start ElevenLabs conversation with signed URL
-      // Note: In production, you'd get this from your backend
-      const conversationId = await conversation.startSession({ 
-        agentId: agentId 
-      });
+      // Check microphone permission first
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach(track => track.stop()); // Stop the test stream
       
-      addMessage('agent', 'Voice connection starting... Please allow microphone access.');
+      addMessage('agent', 'Voice chat is currently in demo mode. For full voice functionality, an ElevenLabs API key would be required. You can continue with text chat to experience Agent Lexi!');
+      setIsConnecting(false);
+      
+      // In production, you would:
+      // 1. Get a signed URL from your backend with ElevenLabs API key
+      // 2. Start the conversation with proper authentication
+      // const conversationId = await conversation.startSession({ url: signedUrl });
+      
     } catch (error) {
       console.error('Failed to start voice conversation:', error);
       setIsConnecting(false);
-      addMessage('agent', 'Unable to start voice chat. Please check your microphone permissions or use text chat.');
+      
+      if (error.name === 'NotAllowedError') {
+        addMessage('agent', 'Microphone access denied. Please enable microphone permissions in your browser settings and try again, or continue with text chat.');
+      } else if (error.name === 'NotFoundError') {
+        addMessage('agent', 'No microphone found. Please connect a microphone or use text chat instead.');
+      } else {
+        addMessage('agent', 'Voice chat is currently unavailable. Please use text chat to experience Agent Lexi\'s capabilities!');
+      }
     }
   };
 
