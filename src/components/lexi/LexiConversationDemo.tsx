@@ -15,7 +15,7 @@ import {
   Users,
   BarChart3
 } from 'lucide-react';
-import agentLexiAvatar from '@/assets/agent-lexi-avatar.jpg';
+const agentLexiAvatar = "/lovable-uploads/4446d053-3b86-4f07-b8eb-e2e22a37cea0.png";
 
 const voiceScenarios = [
   {

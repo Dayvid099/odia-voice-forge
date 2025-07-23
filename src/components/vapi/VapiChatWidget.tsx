@@ -352,7 +352,7 @@ const VapiChatWidget = ({
       <div className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center space-x-3">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/src/assets/agent-lexi-avatar.jpg" alt="Agent Lexi" />
+            <AvatarImage src="/lovable-uploads/4446d053-3b86-4f07-b8eb-e2e22a37cea0.png" alt="Agent Lexi" />
             <AvatarFallback>AL</AvatarFallback>
           </Avatar>
           <div>
