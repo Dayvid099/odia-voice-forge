@@ -26,6 +26,17 @@ export default defineConfig(({ mode }) => ({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', '@supabase/supabase-js'],
-    force: true
+    force: true,
+    exclude: []
+  },
+  build: {
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom']
+        }
+      }
+    }
   },
 }));
