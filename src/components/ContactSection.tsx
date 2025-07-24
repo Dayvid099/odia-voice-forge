@@ -91,7 +91,7 @@ const ContactSection = () => {
             <span className="nigerian-gradient bg-clip-text text-transparent"> Your Business?</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join 500+ Nigerian businesses already using ODIA AI. Book your free demo and get started in 24 hours.
+            Join 500+ Nigerian businesses already using VaaS. Book your free demo and get started in 24 hours.
           </p>
         </div>
 
@@ -297,7 +297,7 @@ const ContactSection = () => {
               </form>
 
               <p className="text-sm text-muted-foreground text-center mt-4">
-                🔒 Your information is secure and will only be used to contact you about ODIA AI services.
+                🔒 Your information is secure and will only be used to contact you about VaaS services.
               </p>
             </CardContent>
           </Card>

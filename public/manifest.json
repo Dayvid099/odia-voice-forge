@@ -1,6 +1,6 @@
 {
-  "name": "ODIA AI - Agent Lexi: Nigerian WhatsApp Voice Assistant",
-  "short_name": "Agent Lexi",
+  "name": "VaaS - Voice as a Service: Nigerian WhatsApp Voice AI Assistant",
+  "short_name": "VaaS",
   "description": "Nigeria's smartest WhatsApp voice assistant. Handles 2,500+ daily conversations in English, Pidgin, Yoruba & Igbo with 98% satisfaction rate.",
   "start_url": "/?source=pwa",
   "display": "standalone",
@@ -75,7 +75,7 @@
     {
       "name": "Chat with Lexi",
       "short_name": "Chat",
-      "description": "Start a conversation with Agent Lexi",
+      "description": "Start a conversation with VaaS Assistant",
       "url": "/agent-lexi?source=shortcut&action=chat",
       "icons": [
         {
@@ -88,7 +88,7 @@
     {
       "name": "Book Demo",
       "short_name": "Demo",
-      "description": "Schedule a demo of Agent Lexi",
+      "description": "Schedule a demo of VaaS",
       "url": "/?source=shortcut&action=demo#demo",
       "icons": [
         {
@@ -101,7 +101,7 @@
     {
       "name": "Contact Support",
       "short_name": "Support",
-      "description": "Get help with Agent Lexi",
+      "description": "Get help with VaaS",
       "url": "/?source=shortcut&action=contact#contact",
       "icons": [
         {
@@ -118,14 +118,14 @@
       "sizes": "512x832",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Agent Lexi mobile chat interface"
+      "label": "VaaS mobile chat interface"
     },
     {
       "src": "/screenshot-desktop.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Agent Lexi desktop dashboard"
+      "label": "VaaS desktop dashboard"
     }
   ]
 }

@@ -116,7 +116,7 @@ const LexiChatWidget = () => {
         <div className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center space-x-3">
             <Avatar>
-              <AvatarImage src={agentLexiAvatar} alt="Agent Lexi" />
+              <AvatarImage src="/lovable-uploads/0d7d3af1-9b27-4a95-950a-7c58dd6d8c51.png" alt="Agent Lexi" />
               <AvatarFallback>AL</AvatarFallback>
             </Avatar>
             <div>
