@@ -5,9 +5,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 
 const DemoBooking = () => {
-  const user = null; // Temporary fix - remove useAuth
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,7 +35,10 @@ const DemoBooking = () => {
 
       if (error) throw error;
 
-      console.log("Demo Booked!", "Thank you for booking a demo. We'll contact you soon to confirm the details.");
+      toast({
+        title: "Demo Booked!",
+        description: "Thank you for booking a demo. We'll contact you soon to confirm the details.",
+      });
 
       // Reset form
       setFormData({
@@ -47,7 +52,11 @@ const DemoBooking = () => {
       });
     } catch (error: any) {
       console.error('Demo booking error:', error);
-      console.error("Error", "Failed to book demo. Please try again.");
+      toast({
+        title: "Error",
+        description: "Failed to book demo. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
