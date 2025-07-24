@@ -11,9 +11,9 @@ const LexiCTASection = () => {
     <section className="py-24 bg-gradient-to-br from-emerald-600 to-emerald-700 text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Deploy VaaS AI Assistant in 24 Hours</h2>
+          <h2 className="text-4xl font-bold mb-4">Deploy Agent Lexi in 24 Hours</h2>
           <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
-            Join 500+ Nigerian businesses already using VaaS
+            Join 500+ Nigerian businesses already using ODIA AI
           </p>
         </div>
 
@@ -22,7 +22,7 @@ const LexiCTASection = () => {
           <Card className="p-8">
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Get Started with VaaS AI Assistant</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Get Started with Agent Lexi</h3>
                 <p className="text-muted-foreground">Free setup consultation + ₦50,000 setup credit</p>
               </div>
 
@@ -79,11 +79,11 @@ const LexiCTASection = () => {
 
                 <div>
                   <Label htmlFor="use_case">Primary Use Case</Label>
-                  <Textarea id="use_case" placeholder="Tell us how you plan to use VaaS AI Assistant..." />
+                  <Textarea id="use_case" placeholder="Tell us how you plan to use Agent Lexi..." />
                 </div>
 
                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 text-lg font-semibold">
-                  Deploy VaaS Assistant Now
+                  Deploy Agent Lexi Now
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
@@ -115,7 +115,7 @@ const LexiCTASection = () => {
                   </div>
                   <div>
                     <div className="font-semibold">Email</div>
-                    <div className="text-emerald-100">hello@vaas.dev</div>
+                    <div className="text-emerald-100">hello@odia.dev</div>
                   </div>
                 </div>
 
@@ -144,7 +144,7 @@ const LexiCTASection = () => {
                 </div>
                 <div className="flex gap-3">
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs font-bold">3</div>
-                  <div>VaaS AI Assistant deployed and trained within 24 hours</div>
+                  <div>Agent Lexi deployed and trained within 24 hours</div>
                 </div>
               </div>
             </Card>

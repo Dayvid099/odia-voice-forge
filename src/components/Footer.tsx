@@ -48,7 +48,7 @@ const Footer = () => {
               <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">O</span>
               </div>
-              <span className="text-2xl font-bold font-space-grotesk">VaaS</span>
+              <span className="text-2xl font-bold font-space-grotesk">ODIA AI</span>
             </div>
             
             <p className="text-white/70 mb-6 leading-relaxed">
@@ -126,7 +126,7 @@ const Footer = () => {
         <div className="container-odia py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
             <div className="flex items-center gap-1">
-              <span>© {currentYear} VaaS - Voice as a Service. All rights reserved.</span>
+              <span>© {currentYear} ODIA AI. All rights reserved.</span>
               <span>•</span>
               <span>Built with</span>
               <Heart className="w-4 h-4 text-red-500 mx-1" />

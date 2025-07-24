@@ -41,7 +41,7 @@ const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
       setIsInstalled(true);
       toast({
         title: "App Installed Successfully! 🎉",
-        description: "VaaS is now available on your home screen and can work offline",
+        description: "Agent Lexi is now available on your home screen and can work offline",
       });
     };
 
@@ -66,13 +66,13 @@ const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
       
       if (outcome === 'accepted') {
         toast({
-          title: "Installing VaaS... 📱",
+          title: "Installing Agent Lexi... 📱",
           description: "The app will be available on your home screen shortly and work offline",
         });
       } else {
         toast({
           title: "Installation Cancelled",
-          description: "You can install VaaS anytime from your browser menu",
+          description: "You can install Agent Lexi anytime from your browser menu",
         });
       }
     } catch (error) {

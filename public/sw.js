@@ -140,7 +140,7 @@ function getOfflineFallback(request) {
       `<!DOCTYPE html>
       <html>
         <head>
-          <title>VaaS - Offline</title>
+          <title>Agent Lexi - Offline</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <style>
             body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
@@ -149,7 +149,7 @@ function getOfflineFallback(request) {
         </head>
         <body>
           <h1>You're Offline</h1>
-          <p class="offline">VaaS will be available when you reconnect.</p>
+          <p class="offline">Agent Lexi will be available when you reconnect.</p>
           <button onclick="window.location.reload()">Try Again</button>
         </body>
       </html>`,
