@@ -6,6 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
+import { authSchema, checkPasswordStrength, createRateLimiter } from '@/lib/security';
+import { Badge } from '@/components/ui/badge';
+
+// Rate limiter for login attempts
+const loginRateLimiter = createRateLimiter(5, 15 * 60 * 1000); // 5 attempts per 15 minutes
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +18,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({ score: 0, feedback: [] as string[] });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,12 +34,39 @@ export default function Auth() {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Rate limiting for login attempts
+    if (isLogin && !loginRateLimiter(email)) {
+      toast({
+        title: "Too many attempts",
+        description: "Please try again in 15 minutes.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
 
     try {
+      // Validate input
+      const validationData = isLogin 
+        ? { email, password }
+        : { email, password, full_name: fullName };
+        
+      const result = authSchema.safeParse(validationData);
+      if (!result.success) {
+        const firstError = result.error.errors[0];
+        toast({
+          title: "Validation Error",
+          description: firstError.message,
+          variant: "destructive",
+        });
+        return;
+      }
+
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({
-          email,
+          email: email.toLowerCase().trim(),
           password,
         });
 
@@ -45,13 +78,23 @@ export default function Auth() {
         });
         navigate('/');
       } else {
+        // Check password strength
+        if (passwordStrength.score < 4) {
+          toast({
+            title: "Weak Password",
+            description: "Please choose a stronger password.",
+            variant: "destructive",
+          });
+          return;
+        }
+        
         const { error } = await supabase.auth.signUp({
-          email,
+          email: email.toLowerCase().trim(),
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/`,
             data: {
-              full_name: fullName,
+              full_name: fullName.trim(),
             }
           }
         });
@@ -71,6 +114,14 @@ export default function Auth() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Update password strength on change
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    if (!isLogin) {
+      setPasswordStrength(checkPasswordStrength(value));
     }
   };
 
@@ -118,10 +169,27 @@ export default function Auth() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handlePasswordChange(e.target.value)}
                 required
-                minLength={6}
+                minLength={8}
               />
+              {!isLogin && password && (
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">Strength:</span>
+                    <Badge variant={passwordStrength.score >= 4 ? "default" : "destructive"}>
+                      {passwordStrength.score >= 4 ? "Strong" : "Weak"}
+                    </Badge>
+                  </div>
+                  {passwordStrength.feedback.length > 0 && (
+                    <ul className="text-xs text-muted-foreground">
+                      {passwordStrength.feedback.map((item, idx) => (
+                        <li key={idx}>• {item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
             
             <Button 

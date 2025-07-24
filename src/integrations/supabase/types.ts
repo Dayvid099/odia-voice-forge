@@ -178,6 +178,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_update_user_role: {
+        Args: { target_user_id: string; new_role: string }
+        Returns: undefined
+      }
+      cleanup_old_chat_sessions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       get_current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: string

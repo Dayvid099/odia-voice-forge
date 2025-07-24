@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
+import { useSecureStorage } from "@/hooks/useSecureStorage";
 import { 
   Phone, 
   PhoneOff, 
@@ -59,17 +60,21 @@ const VapiChatWidget = ({
   const [callStatus, setCallStatus] = useState<'idle' | 'calling' | 'connected' | 'ended'>('idle');
   
   const { toast } = useToast();
+  const secureStorage = useSecureStorage();
   const vapiRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Initialize Vapi
   useEffect(() => {
-    const savedApiKey = localStorage.getItem('vapi_api_key');
-    if (savedApiKey) {
-      setVapiApiKey(savedApiKey);
-      initializeVapi(savedApiKey);
-    }
-  }, []);
+    const loadApiKey = async () => {
+      const savedApiKey = await secureStorage.getApiKey('vapi');
+      if (savedApiKey) {
+        setVapiApiKey(savedApiKey);
+        initializeVapi(savedApiKey);
+      }
+    };
+    loadApiKey();
+  }, [secureStorage]);
 
   const initializeVapi = (apiKey: string) => {
     try {
@@ -295,14 +300,14 @@ const VapiChatWidget = ({
     }
   };
 
-  const handleSaveApiKey = () => {
+  const handleSaveApiKey = async () => {
     if (vapiApiKey) {
-      localStorage.setItem('vapi_api_key', vapiApiKey);
+      await secureStorage.setApiKey('vapi', vapiApiKey);
       initializeVapi(vapiApiKey);
       setShowSettings(false);
       toast({
         title: "API Key Saved",
-        description: "Vapi AI API key has been saved successfully",
+        description: "Vapi AI API key has been saved securely",
       });
     }
   };
