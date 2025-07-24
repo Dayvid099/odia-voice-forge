@@ -25,20 +25,47 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, phone, message }: ContactRequest = await req.json();
+    // Input validation and sanitization
+    const contentType = req.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Content-Type must be application/json');
+    }
+
+    const body = await req.text();
+    if (body.length > 5000) { // 5KB limit
+      throw new Error('Request body too large');
+    }
+
+    const { name, email, phone, message }: ContactRequest = JSON.parse(body);
 
     if (!name || !email || !message) {
       throw new Error('Name, email, and message are required');
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error('Invalid email format');
+    }
+
+    // Sanitize inputs
+    const sanitizedName = name.trim().slice(0, 100);
+    const sanitizedEmail = email.trim().toLowerCase().slice(0, 255);
+    const sanitizedPhone = phone?.trim().slice(0, 20);
+    const sanitizedMessage = message.trim().slice(0, 1000);
+
+    if (!sanitizedName || !sanitizedEmail || !sanitizedMessage) {
+      throw new Error('Required fields cannot be empty after sanitization');
     }
 
     // Insert contact submission
     const { data, error } = await supabase
       .from('contact_submissions')
       .insert({
-        name,
-        email,
-        phone,
-        message,
+        name: sanitizedName,
+        email: sanitizedEmail,
+        phone: sanitizedPhone,
+        message: sanitizedMessage,
       })
       .select()
       .single();

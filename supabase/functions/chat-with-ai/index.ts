@@ -31,10 +31,32 @@ serve(async (req) => {
   }
 
   try {
-    const { message, sessionId, userId }: ChatRequest = await req.json();
+    // Input validation and sanitization
+    const contentType = req.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Content-Type must be application/json');
+    }
 
-    if (!message) {
-      throw new Error('Message is required');
+    const body = await req.text();
+    if (body.length > 10000) { // 10KB limit
+      throw new Error('Request body too large');
+    }
+
+    const { message, sessionId, userId }: ChatRequest = JSON.parse(body);
+
+    if (!message || typeof message !== 'string') {
+      throw new Error('Message is required and must be a string');
+    }
+
+    if (message.length > 2000) {
+      throw new Error('Message too long (max 2000 characters)');
+    }
+
+    // Sanitize message content
+    const sanitizedMessage = message.trim().replace(/[<>]/g, '');
+    
+    if (!sanitizedMessage) {
+      throw new Error('Message cannot be empty after sanitization');
     }
 
     // Get or create chat session
@@ -53,7 +75,7 @@ serve(async (req) => {
     const chatHistory: ChatMessage[] = session?.session_data || [];
     
     // Add user message to history
-    chatHistory.push({ role: 'user', content: message });
+    chatHistory.push({ role: 'user', content: sanitizedMessage });
 
     // Call OpenAI API
     const response = await fetch('https://api.openai.com/v1/chat/completions', {

@@ -29,6 +29,17 @@ serve(async (req) => {
   }
 
   try {
+    // Input validation and sanitization
+    const contentType = req.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Content-Type must be application/json');
+    }
+
+    const body = await req.text();
+    if (body.length > 5000) { // 5KB limit
+      throw new Error('Request body too large');
+    }
+
     const { 
       name, 
       email, 
@@ -38,10 +49,27 @@ serve(async (req) => {
       preferred_time, 
       message, 
       userId 
-    }: DemoRequest = await req.json();
+    }: DemoRequest = JSON.parse(body);
 
     if (!name || !email) {
       throw new Error('Name and email are required');
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error('Invalid email format');
+    }
+
+    // Sanitize inputs
+    const sanitizedName = name.trim().slice(0, 100);
+    const sanitizedEmail = email.trim().toLowerCase().slice(0, 255);
+    const sanitizedCompany = company?.trim().slice(0, 100);
+    const sanitizedPhone = phone?.trim().slice(0, 20);
+    const sanitizedMessage = message?.trim().slice(0, 1000);
+
+    if (!sanitizedName || !sanitizedEmail) {
+      throw new Error('Required fields cannot be empty after sanitization');
     }
 
     // Insert demo booking
@@ -49,13 +77,13 @@ serve(async (req) => {
       .from('demo_bookings')
       .insert({
         user_id: userId || null,
-        name,
-        email,
-        company,
-        phone,
+        name: sanitizedName,
+        email: sanitizedEmail,
+        company: sanitizedCompany,
+        phone: sanitizedPhone,
         preferred_date: preferred_date || null,
         preferred_time: preferred_time || null,
-        message,
+        message: sanitizedMessage,
         status: 'pending',
       })
       .select()
