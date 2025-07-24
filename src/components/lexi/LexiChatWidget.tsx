@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 import { MessageCircle, Send, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from '@/hooks/use-toast';
 const agentLexiAvatar = "/lovable-uploads/4446d053-3b86-4f07-b8eb-e2e22a37cea0.png";
 
 interface ChatMessage {
@@ -70,11 +69,7 @@ const LexiChatWidget = () => {
       }
     } catch (error: any) {
       console.error('Chat error:', error);
-      toast({
-        title: "Chat Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
+      console.error('Chat Error', 'Failed to send message. Please try again.');
       
       // Add error message
       const errorResponse: ChatMessage = {
