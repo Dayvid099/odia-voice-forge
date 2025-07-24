@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Play, Mic, ArrowRight, Sparkles, Users, Clock } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
-  const { user } = useAuth();
+  const user = null; // Temporary fix - remove useAuth
   const navigate = useNavigate();
   const scrollToDemo = () => {
     document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });

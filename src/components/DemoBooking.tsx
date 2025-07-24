@@ -5,11 +5,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/hooks/use-toast';
 
 const DemoBooking = () => {
-  const { user } = useAuth();
+  const user = null; // Temporary fix - remove useAuth
   const [formData, setFormData] = useState({
     name: '',
     email: '',
